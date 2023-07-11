@@ -3,7 +3,7 @@ import * as sinon from 'sinon';
 import {GVL} from '../src/GVL';
 import {Vendor} from '../src/model/gvl';
 import {IntMap} from '../src/model/IntMap';
-import {XMLHttpTestTools} from '@iabtcf/testing';
+import {XMLHttpTestTools} from '@iabtechlabtcf/testing';
 import {Json} from '../src/Json';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

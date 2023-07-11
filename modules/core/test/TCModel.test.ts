@@ -1,4 +1,4 @@
-import {sameDataDiffRef} from '@iabtcf/testing';
+import {sameDataDiffRef} from '@iabtechlabtcf/testing';
 import {expect} from 'chai';
 import {TCModel} from '../src/TCModel';
 
