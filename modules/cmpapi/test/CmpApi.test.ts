@@ -7,11 +7,11 @@ import {Ping} from '../src/response/Ping';
 import {TCData} from '../src/response/TCData';
 import {TCFCommand} from '../src/command/TCFCommand';
 import {TestUtils} from './TestUtils';
-import {VendorList} from '@iabtechlabtcf/core';
+import {VendorList} from '@pubtech-ai/core';
 import {expect} from 'chai';
-import {makeRandomInt, makeRandomString, TCStringFactory} from '@iabtechlabtcf/testing';
+import {makeRandomInt, makeRandomString, TCStringFactory} from '@pubtech-ai/testing';
 
-import * as stub from '@iabtechlabtcf/stub';
+import * as stub from '@pubtech-ai/stub';
 
 const API_VERSION = 2;
 

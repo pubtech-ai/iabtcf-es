@@ -1,8 +1,8 @@
-[![NPM version](https://img.shields.io/npm/v/@iabtechlabtcf/stub.svg?style=flat-square)](https://www.npmjs.com/package/@iabtechlabtcf/stub)
-[![npm module downloads per month](http://img.shields.io/npm/dm/@iabtechlabtcf/stub.svg?style=flat)](https://www.npmjs.org/package/@iabtechlabtcf/stub)
-[![InteractiveAdvertisingBureau](https://circleci.com/gh/InteractiveAdvertisingBureau/iabtechlabtcf-es.svg?style=shield)](https://circleci.com/gh/InteractiveAdvertisingBureau/iabtechlabtcf-es)
+[![NPM version](https://img.shields.io/npm/v/@pubtech-ai/stub.svg?style=flat-square)](https://www.npmjs.com/package/@pubtech-ai/stub)
+[![npm module downloads per month](http://img.shields.io/npm/dm/@pubtech-ai/stub.svg?style=flat)](https://www.npmjs.org/package/@pubtech-ai/stub)
+[![InteractiveAdvertisingBureau](https://circleci.com/gh/InteractiveAdvertisingBureau/pubtech-ai-es.svg?style=shield)](https://circleci.com/gh/InteractiveAdvertisingBureau/pubtech-ai-es)
 
-# @iabtechlabtcf/stub
+# @pubtech-ai/stub
 
 Cmp API Stub code.  Maybe included in commonjs loader or dropped directly on the page.
 
@@ -10,23 +10,23 @@ Cmp API Stub code.  Maybe included in commonjs loader or dropped directly on the
 
 npm
 ```
-npm install @iabtechlabtcf/stub
+npm install @pubtech-ai/stub
 ```
 
 yarn
 ```
-yarn add @iabtechlabtcf/stub
+yarn add @pubtech-ai/stub
 ```
 #### Using
 
 ##### include via module loading
 ```javascript
-import * as cmpstub from '@iabtechlabtcf/stub';
+import * as cmpstub from '@pubtech-ai/stub';
 ```
 or
 
 ```javascript
-const cmpstub = require('@iabtechlabtcf/stub');
+const cmpstub = require('@pubtech-ai/stub');
 ```
 
 then execute:
@@ -38,9 +38,9 @@ this should generate the `__tcfapi()` window function with the queing functional
 
 ##### to drop on a page
 ```
-git clone https://github.com/InteractiveAdvertisingBureau/iabtechlabtcf-es.git
+git clone https://github.com/InteractiveAdvertisingBureau/pubtech-ai-es.git
 
-cd iabtechlabtcf-es/modules/stub/
+cd pubtech-ai-es/modules/stub/
 
 yarn // or npm install
 

@@ -1,5 +1,5 @@
 {
-  "name": "@iabtechlabtcf/testing",
+  "name": "@pubtech-ai/testing",
   "version": "1.5.7",
   "description": "Shared testing utilities",
   "author": "Mayank Mishra <mayank@iabtechlab.com>",
@@ -13,7 +13,8 @@
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
     },
-    "./lib/vendorlist/*.json": "./lib/mjs/vendorlist/*.json"
+    "./lib/vendorlist/v2/*.json": "./lib/mjs/vendorlist/v2/*.json",
+    "./lib/vendorlist/v2.2/*.json": "./lib/mjs/vendorlist/v2.2/*.json"
   },
   "types": "lib/mjs/index.d.ts",
   "files": [
@@ -26,7 +27,7 @@
     "lint": "eslint `find src -name '*.ts'`"
   },
   "peerDependencies": {
-    "@iabtechlabtcf/core": ">=1.0.0"
+    "@pubtech-ai/core": ">=1.0.0"
   },
   "dependencies": {
     "@types/sinon": "^10.0.11",
