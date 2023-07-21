@@ -4,7 +4,7 @@ import {TCModel} from '../src/TCModel';
 
 import {Vector} from '../src/model/Vector';
 import {GVL} from '../src/GVL';
-import {GVLFactory} from '../../testing/lib/GVLFactory';
+import {GVLFactory} from '../../testing/lib/mjs/GVLFactory';
 
 describe('TCModel', (): void => {
 
@@ -110,7 +110,7 @@ describe('TCModel', (): void => {
 
     describe(fieldName, (): void => {
 
-      const gvl: GVL = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
+      const gvl: GVL = new GVL(require('@iabtcf/testing/lib/vendorlist/v2/vendor-list.json'));
 
       it(`should create an instance of ${instanceName} as ${fieldName} on init`, (): void => {
 
@@ -220,7 +220,7 @@ describe('TCModel', (): void => {
 
   const runSetAllAndUnsetAll = (): void => {
 
-    const gvl: GVL = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
+    const gvl: GVL = new GVL(require('@iabtcf/testing/lib/vendorlist/v2/vendor-list.json'));
 
     const loopGVLMap = (gvlKey: string, cb ): void => {
 

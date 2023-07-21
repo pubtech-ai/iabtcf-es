@@ -1,14 +1,22 @@
-import {Cloneable} from '../Cloneable';
+import {Cloneable} from '../Cloneable.js';
 
-type TreeNodeMaybe = TreeNode | null;
 interface TreeNode {
   value: number;
-  right: TreeNodeMaybe;
-  left: TreeNodeMaybe;
+  right: TreeNode | null;
+  left: TreeNode | null;
 }
+
+type TreeNodeMaybe = TreeNode | null;
+
 export class BinarySearchTree extends Cloneable<BinarySearchTree> {
 
   private root: TreeNodeMaybe = null;
+
+  public getRoot(): TreeNodeMaybe {
+
+    return this.root;
+
+  }
 
   public isEmpty(): boolean {
 
@@ -338,6 +346,62 @@ export class BinarySearchTree extends Cloneable<BinarySearchTree> {
         current = null;
 
       }
+
+    }
+
+  }
+
+  /**
+   * Build Binary Search Tree from the ordered number array.
+   *  The depth of the tree will be the `log2` of the array length.
+   * @param {number[]} values number array in ascending order
+   * @return {BinarySearchTree} Binary Search Tree
+   */
+  static build(values?: number[]): BinarySearchTree | null {
+
+    if (!values || values.length === 0) {
+
+      return null;
+
+    } else if (values.length === 1) {
+
+      const tree = new BinarySearchTree();
+
+      tree.add(values[0]);
+
+      return tree;
+
+    } else {
+
+      const rootIndex = values.length >> 1;
+
+      const tree = new BinarySearchTree();
+
+      tree.add(values[rootIndex]);
+
+      const root = tree.getRoot();
+
+      if (root) {
+
+        if (rootIndex + 1 < values.length) {
+
+          const rightTree = BinarySearchTree.build(values.slice(rootIndex + 1));
+
+          root.right = rightTree ? rightTree.getRoot() : null;
+
+        }
+
+        if (rootIndex - 1 > 0 ) {
+
+          const leftTree = BinarySearchTree.build(values.slice(0, rootIndex - 1));
+
+          root.left = leftTree ? leftTree.getRoot(): null;
+
+        }
+
+      }
+
+      return tree;
 
     }
 

@@ -1,8 +1,8 @@
-import {BitLength} from '../BitLength';
-import {BooleanEncoder} from './BooleanEncoder';
-import {DecodingError} from '../../errors';
-import {IntEncoder} from './IntEncoder';
-import {PurposeRestrictionVector, PurposeRestriction} from '../../model';
+import {BitLength} from '../BitLength.js';
+import {BooleanEncoder} from './BooleanEncoder.js';
+import {DecodingError} from '../../errors/index.js';
+import {IntEncoder} from './IntEncoder.js';
+import {PurposeRestrictionVector, PurposeRestriction} from '../../model/index.js';
 
 export class PurposeRestrictionVectorEncoder {
 
@@ -44,8 +44,23 @@ export class PurposeRestrictionVectorEncoder {
 
           }
 
-          // either end of the loop or there's a gap greater than 1 number
-          if (i === len - 1 || vendors[i + 1] > vendorId + 1) {
+          // we know that `len` is greater than zero because we entered the loop
+          const lastVendorId = vendors[len - 1];
+          const gvlVendorIds = prVector.gvl.vendorIds;
+
+          const nextGvlVendor = (vendorId: number): number => {
+
+            while (++vendorId <= lastVendorId && !gvlVendorIds.has(vendorId)) {
+            }
+
+            return vendorId;
+
+          };
+
+          /**
+           * either end of the loop or there are GVL vendor IDs before the next one
+           */
+          if (i === len - 1 || vendors[i + 1] > nextGvlVendor(vendorId)) {
 
             /**
              * it's a range entry if we've got something other than the start

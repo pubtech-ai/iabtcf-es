@@ -1,9 +1,9 @@
-import {PurposeRestriction} from './PurposeRestriction';
-import {BinarySearchTree} from './BinarySearchTree';
-import {RestrictionType} from './RestrictionType';
-import {GVL} from '../GVL';
-import {Vendor} from './gvl/Vendor';
-import {Cloneable} from '../Cloneable';
+import {PurposeRestriction} from './PurposeRestriction.js';
+import {BinarySearchTree} from './BinarySearchTree.js';
+import {RestrictionType} from './RestrictionType.js';
+import {GVL} from '../GVL.js';
+import {Vendor} from './gvl/index.js';
+import {Cloneable} from '../Cloneable.js';
 
 export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector> {
 
@@ -125,6 +125,50 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
        */
 
       this.map.get(hash).add(vendorId);
+
+    }
+
+  }
+
+  /**
+   * restrictPurposeToLegalBasis - adds all Vendors under a given Purpose Restriction
+   *
+   * @param {PurposeRestriction} purposeRestriction
+   * @return {void}
+   */
+  public restrictPurposeToLegalBasis(purposeRestriction: PurposeRestriction): void {
+
+    const vendors = this.gvl.vendorIds;
+    const hash: string = purposeRestriction.hash;
+    const lastEntry = (function(): number {
+
+      let value: number;
+      for (value of vendors);
+      return value;
+
+    })();
+
+    /**
+     * Create an ordered array of vendor IDs from `1` (the minimum value for Vendor ID) to `lastEntry`
+     */
+    const values = [...Array(lastEntry).keys()].map( (i) => i + 1);
+
+    for (let i = 1; i <= lastEntry; i++) {
+
+      if (!this.has(hash)) {
+
+        this.map.set(hash, BinarySearchTree.build(values)); // use static method `build` to create a `BST` from the ordered array of IDs
+        this.bitLength = 0;
+
+      }
+
+      /**
+       * Previously I had a check here to remove a duplicate value, but because
+       * we're using a tree the value is guaranteed to be unique so there is no
+       * need to add an additional de-duplication here.
+       */
+
+      this.map.get(hash).add(i);
 
     }
 
