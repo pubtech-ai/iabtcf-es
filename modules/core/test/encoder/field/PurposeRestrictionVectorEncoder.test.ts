@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import {PurposeRestrictionVector, PurposeRestriction, RestrictionType} from '../../../src/model';
 import {BitLength} from '../../../src/encoder';
 import {GVL} from '../../../src/GVL';
-import {makeRandomInt, sameDataDiffRef, GVLFactory} from '@iabtechlabtcf/testing';
+import {makeRandomInt, sameDataDiffRef, GVLFactory} from '@pubtech-ai/testing';
 
 const randomize = (ar: number[]): number[] => {
 

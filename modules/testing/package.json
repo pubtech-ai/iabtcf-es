@@ -1,6 +1,6 @@
 {
-  "name": "@iabtechlabtcf/testing",
-  "version": "1.5.7",
+  "name": "@pubtech-ai/testing",
+  "version": "1.6.0",
   "description": "Shared testing utilities",
   "author": "Mayank Mishra <mayank@iabtechlab.com>",
   "homepage": "https://iabtcf.com/",
@@ -27,7 +27,7 @@
     "lint": "eslint `find src -name '*.ts'`"
   },
   "peerDependencies": {
-    "@iabtechlabtcf/core": ">=1.0.0"
+    "@pubtech-ai/core": ">=1.0.0"
   },
   "dependencies": {
     "@types/sinon": "^10.0.11",

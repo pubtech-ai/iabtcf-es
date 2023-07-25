@@ -1,8 +1,8 @@
 import {CmpApiModel} from '../../src/CmpApiModel';
-import {TCModelFactory, TCStringFactory, XMLHttpTestTools} from '@iabtechlabtcf/testing';
+import {TCModelFactory, TCStringFactory, XMLHttpTestTools} from '@pubtech-ai/testing';
 import {GetTCDataCommand} from '../../src/command/GetTCDataCommand';
 import {TCData} from '../../src/response/TCData';
-import {TCString} from '@iabtechlabtcf/core';
+import {TCString} from '@pubtech-ai/core';
 import {expect} from 'chai';
 
 describe('command->GetTCDataCommand', (): void => {
