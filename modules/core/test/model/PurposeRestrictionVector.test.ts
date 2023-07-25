@@ -181,6 +181,7 @@ export function run(): void {
       const purpRestriction = new PurposeRestriction(purposeId, restrictionType);
       // eslint-disable-next-line
       const vendorlistJson = require('@pubtech-ai/testing/lib/vendorlist/v2/purpose-restriction-vendor-list.json');
+
       const vendorIds = Object.keys(vendorlistJson.vendors);
       let chosenVendorId = 0;
 
@@ -218,6 +219,7 @@ export function run(): void {
       const purpRestriction = new PurposeRestriction(purposeId, restrictionType);
       // eslint-disable-next-line
       const vendorlistJson = require('@pubtech-ai/testing/lib/vendorlist/v2/purpose-restriction-vendor-list.json');
+
       const vendorIds = Object.keys(vendorlistJson.vendors);
       let chosenVendorId = 0;
 
@@ -255,6 +257,7 @@ export function run(): void {
       const purpRestriction = new PurposeRestriction(purposeId, restrictionType);
       // eslint-disable-next-line
       const vendorlistJson = require('@pubtech-ai/testing/lib/vendorlist/v2/purpose-restriction-vendor-list.json');
+
       const vendorIds = Object.keys(vendorlistJson.vendors);
       let chosenVendorId = 0;
 
@@ -292,6 +295,7 @@ export function run(): void {
       const purpRestriction = new PurposeRestriction(purposeId, restrictionType);
       // eslint-disable-next-line
       const vendorlistJson = require('@pubtech-ai/testing/lib/vendorlist/v2/purpose-restriction-vendor-list.json');
+
       const vendorIds = Object.keys(vendorlistJson.vendors);
       let chosenVendorId = 0;
 
