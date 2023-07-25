@@ -2,8 +2,6 @@
 
 ROOT=$(git rev-parse --show-toplevel)
 
-npm_package_version=1.6.0
-
 cd $ROOT
 
 for pkg in ./modules/*; do
