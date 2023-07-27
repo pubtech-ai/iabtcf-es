@@ -3,14 +3,14 @@
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 DIFF=$(git diff HEAD)
 ROOT=$(git rev-parse --show-toplevel)
-npm_package_version=1.6.0
+npm_package_version=1.6.1
 
-if [[ -n $DIFF ]]; then
-
-  echo 'There are unstaged changed, please commit changes before publishing'
-  exit 1
-
-fi
+#if [[ -n $DIFF ]]; then
+#
+#  echo 'There are unstaged changed, please commit changes before publishing'
+#  exit 1
+#
+#fi
 
 if [[ -z $npm_package_version ]]; then
 
@@ -62,9 +62,9 @@ for pkg in ./modules/*; do
   fi
 done
 
-git push
-# pushes the tag
-git push origin $npm_package_version
-
-git checkout $BRANCH
-git push
+#git push
+## pushes the tag
+#git push origin $npm_package_version
+#
+#git checkout $BRANCH
+#git push
