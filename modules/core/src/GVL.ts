@@ -308,28 +308,34 @@ export class GVL extends Cloneable<GVL> implements VendorList {
   /**
    * emptyLanguageCache
    *
-   * @param {string} [lang] - Optional ISO 639-1 langauge code to remove from
+   * @param {string} [lang] - Optional language code to remove from
    * the cache.  Should be one of the languages in GVL.consentLanguages set.
    * If not then the whole cache will be deleted.
    * @return {boolean} - true if anything was deleted from the cache
    */
   public static emptyLanguageCache(lang?: string): boolean {
 
-    let retr = false;
+    let result = false;
 
-    if (lang === undefined && GVL.LANGUAGE_CACHE.size > 0) {
+    if (lang == null && GVL.LANGUAGE_CACHE.size > 0) {
 
       GVL.LANGUAGE_CACHE = new Map<string, Declarations>();
-      retr = true;
+      result = true;
 
-    } else if (typeof lang === 'string' && this.consentLanguages.has(lang.toUpperCase())) {
+    } else if (typeof lang === 'string') {
 
-      GVL.LANGUAGE_CACHE.delete(lang.toUpperCase());
-      retr = true;
+      try {
+
+        GVL.LANGUAGE_CACHE.delete(GVL.consentLanguages.parseLanguage(lang));
+        result = true;
+
+      } catch (e) {
+        // Empty to preserve the old behavior.
+      }
 
     }
 
-    return retr;
+    return result;
 
   }
 
@@ -420,58 +426,60 @@ export class GVL extends Cloneable<GVL> implements VendorList {
    * changeLanguage - retrieves the purpose language translation and sets the
    * internal language variable
    *
-   * @param {string} lang - ISO 639-1 langauge code to change language to
+   * @param {string} lang - language code to change language to
    * @return {Promise<void | GVLError>} - returns the `readyPromise` and
    * resolves when this GVL is populated with the data from the language file.
    */
   public async changeLanguage(lang: string): Promise<void | GVLError> {
 
-    const langUpper = lang.toUpperCase();
+    let parsedLanguage: string = lang;
 
-    if (GVL.consentLanguages.has(langUpper)) {
+    try {
 
-      if (langUpper !== this.lang_) {
+      parsedLanguage = GVL.consentLanguages.parseLanguage(lang);
 
-        this.lang_ = langUpper;
+    } catch (e) {
 
-        if (GVL.LANGUAGE_CACHE.has(langUpper)) {
+      throw new GVLError('Error during parsing the language: ' + e.message);
 
-          const cached: Declarations = GVL.LANGUAGE_CACHE.get(langUpper) as Declarations;
+    }
 
-          for (const prop in cached) {
+    if (parsedLanguage !== this.lang_) {
 
-            if (cached.hasOwnProperty(prop)) {
+      this.lang_ = parsedLanguage;
 
-              this[prop] = cached[prop];
+      if (GVL.LANGUAGE_CACHE.has(parsedLanguage)) {
 
-            }
+        const cached: Declarations = GVL.LANGUAGE_CACHE.get(parsedLanguage) as Declarations;
 
-          }
+        for (const prop in cached) {
 
-        } else {
+          if (cached.hasOwnProperty(prop)) {
 
-          // load Language specified
-          const url = GVL.baseUrl + GVL.languageFilename.replace('[LANG]', lang);
-
-          try {
-
-            await this.fetchJson(url);
-
-            this.cacheLanguage();
-
-          } catch (err) {
-
-            throw new GVLError('unable to load language: ' + err.message);
+            this[prop] = cached[prop];
 
           }
 
         }
 
+      } else {
+
+        // load Language specified
+        const url = GVL.baseUrl + GVL.languageFilename.replace('[LANG]', lang);
+
+        try {
+
+          await this.fetchJson(url);
+
+          this.cacheLanguage();
+
+        } catch (err) {
+
+          throw new GVLError('unable to load language: ' + err.message);
+
+        }
+
       }
-
-    } else {
-
-      throw new GVLError(`unsupported language ${lang}`);
 
     }
 
