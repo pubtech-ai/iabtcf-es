@@ -227,6 +227,7 @@ export class GVL extends Cloneable<GVL> implements VendorList {
   public dataCategories?: IntMap<DataCategory>;
 
   private lang_: string;
+  private cacheLang_: string;
 
   private isLatest = false;
 
@@ -247,6 +248,7 @@ export class GVL extends Cloneable<GVL> implements VendorList {
     let url = GVL.baseUrl;
 
     this.lang_ = GVL.DEFAULT_LANGUAGE;
+    this.cacheLang_ = GVL.DEFAULT_LANGUAGE;
 
     if (this.isVendorList(versionOrVendorList as GVL)) {
 
@@ -322,16 +324,10 @@ export class GVL extends Cloneable<GVL> implements VendorList {
       GVL.LANGUAGE_CACHE = new Map<string, Declarations>();
       result = true;
 
-    } else if (typeof lang === 'string') {
+    } else if (typeof lang === 'string' && this.consentLanguages.has(lang.toUpperCase())) {
 
-      try {
-
-        GVL.LANGUAGE_CACHE.delete(GVL.consentLanguages.parseLanguage(lang));
-        result = true;
-
-      } catch (e) {
-        // Empty to preserve the old behavior.
-      }
+      GVL.LANGUAGE_CACHE.delete(lang.toUpperCase());
+      result = true;
 
     }
 
@@ -368,9 +364,9 @@ export class GVL extends Cloneable<GVL> implements VendorList {
 
   private cacheLanguage(): void {
 
-    if (!GVL.LANGUAGE_CACHE.has(this.lang_)) {
+    if (!GVL.LANGUAGE_CACHE.has(this.cacheLang_)) {
 
-      GVL.LANGUAGE_CACHE.set(this.lang_, {
+      GVL.LANGUAGE_CACHE.set(this.cacheLang_, {
         purposes: this.purposes,
         specialPurposes: this.specialPurposes,
         features: this.features,
@@ -444,13 +440,15 @@ export class GVL extends Cloneable<GVL> implements VendorList {
 
     }
 
+    const cacheLang = lang.toUpperCase();
+
     if (parsedLanguage !== this.lang_) {
 
       this.lang_ = parsedLanguage;
 
-      if (GVL.LANGUAGE_CACHE.has(parsedLanguage)) {
+      if (GVL.LANGUAGE_CACHE.has(cacheLang)) {
 
-        const cached: Declarations = GVL.LANGUAGE_CACHE.get(parsedLanguage) as Declarations;
+        const cached: Declarations = GVL.LANGUAGE_CACHE.get(cacheLang) as Declarations;
 
         for (const prop in cached) {
 
@@ -471,6 +469,7 @@ export class GVL extends Cloneable<GVL> implements VendorList {
 
           await this.fetchJson(url);
 
+          this.cacheLang_ = cacheLang;
           this.cacheLanguage();
 
         } catch (err) {
