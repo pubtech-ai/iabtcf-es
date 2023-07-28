@@ -455,7 +455,7 @@ describe('GVL', (): void => {
 
     const firstReq: sinon.SinonFakeXMLHttpRequest = XMLHttpTestTools.requests[0];
 
-    expect(firstReq.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', language));
+    expect(firstReq.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', language.toLowerCase()));
 
     const secLang = 'pt-PT';
     gvl.changeLanguage(secLang);
@@ -464,7 +464,7 @@ describe('GVL', (): void => {
 
     const secondReq: sinon.SinonFakeXMLHttpRequest = XMLHttpTestTools.requests[1];
 
-    expect(secondReq.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', secLang));
+    expect(secondReq.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', secLang.toLowerCase()));
 
   });
 
@@ -588,7 +588,7 @@ describe('GVL', (): void => {
     const req: sinon.SinonFakeXMLHttpRequest = XMLHttpTestTools.requests[0];
 
     expect(req.method).to.equal('GET');
-    expect(req.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', language));
+    expect(req.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', language.toLowerCase()));
 
     req.respond(404, XMLHttpTestTools.JSON_HEADER, JSON.stringify({}));
 
