@@ -1,6 +1,6 @@
 {
   "name": "pubtech-ai",
-  "version": "1.6.0",
+  "version": "1.6.2",
   "description": "Official compliant tool suite for implementing the iab. Transparency and Consent Framework (TCF).",
   "private": true,
   "workspaces": [
@@ -18,7 +18,7 @@
     "tidy": "rm -rf modules/**/lib coverage modules/**/coverage .nyc_output modules/**/.nyc_output modules/**/*.log",
     "clean": "rm -rf node_modules modules/**/node_modules && yarn run tidy",
     "lint": "yarn workspaces run lint",
-    "test": "yarn workspace @iabtechlabtcf/core test && yarn workspace @iabtechlabtcf/cmpapi test",
+    "test": "yarn workspace @pubtech-ai/core test && yarn workspace @pubtech-ai/cmpapi test",
     "debug": "ndb yarn test",
     "postversion": "./bin/version",
     "deploy": "./bin/publish-version",
