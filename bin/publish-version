@@ -3,7 +3,7 @@
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 DIFF=$(git diff HEAD)
 ROOT=$(git rev-parse --show-toplevel)
-npm_package_version=1.6.5
+npm_package_version=1.6.6
 
 #if [[ -n $DIFF ]]; then
 #
