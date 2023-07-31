@@ -7,11 +7,15 @@ import {XMLHttpTestTools} from '@pubtech-ai/testing';
 import {Json} from '../src/Json';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const vendorlistJson = require('@pubtech-ai/testing/lib/vendorlist/v2/vendor-list-v24.json');
+import vendorListJson from '../../testing/lib/mjs/vendorlist/v2/vendor-list-v24.json';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const translationJson = require('@pubtech-ai/testing/lib/vendorlist/v2/purposes-fr.json');
+import translationJson from '../../testing/lib/mjs/vendorlist/v2/purposes-fr.json';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const vendorlistJson22 = require('@pubtech-ai/testing/lib/vendorlist/v2.2/vendor-list.json');
+import vendorListJson22 from '../../testing/lib/mjs/vendorlist/v2.2/vendor-list.json';
+import {VersionOrVendorList} from '../lib/mjs';
+
+const vendorlistJson: any = vendorListJson as unknown as VersionOrVendorList;
+const vendorlistJson22: any = vendorListJson22 as unknown as VersionOrVendorList;
 
 describe('GVL', (): void => {
 
@@ -129,7 +133,7 @@ describe('GVL', (): void => {
 
   it('should clone all values', (): void => {
 
-    const gvl: GVL = new GVL(vendorlistJson);
+    const gvl: GVL = new GVL(vendorlistJson as unknown as VersionOrVendorList);
     const clone: GVL = gvl.clone();
 
     assertPopulated(gvl);
@@ -436,6 +440,34 @@ describe('GVL', (): void => {
 
   });
 
+  it('should replace the language when changeLanguage() is called with same language with different variant', () => {
+
+    GVL.baseUrl = 'http://sweetcmp.com';
+
+    const gvl: GVL = new GVL(vendorlistJson);
+    const language = 'pt-BR';
+
+    expect(gvl.language).to.equal(GVL.DEFAULT_LANGUAGE);
+
+    gvl.changeLanguage(language);
+
+    expect(XMLHttpTestTools.requests.length).to.equal(1);
+
+    const firstReq: sinon.SinonFakeXMLHttpRequest = XMLHttpTestTools.requests[0];
+
+    expect(firstReq.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', language.toLowerCase()));
+
+    const secLang = 'pt-PT';
+    gvl.changeLanguage(secLang);
+
+    expect(XMLHttpTestTools.requests.length).to.equal(2);
+
+    const secondReq: sinon.SinonFakeXMLHttpRequest = XMLHttpTestTools.requests[1];
+
+    expect(secondReq.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', secLang.toLowerCase()));
+
+  });
+
   const langNotOk = (language: string): void => {
 
     it(`should throw an error if ${language} is passed to changeLanguage()`, async (): Promise<void> => {
@@ -556,7 +588,7 @@ describe('GVL', (): void => {
     const req: sinon.SinonFakeXMLHttpRequest = XMLHttpTestTools.requests[0];
 
     expect(req.method).to.equal('GET');
-    expect(req.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', language));
+    expect(req.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', language.toLowerCase()));
 
     req.respond(404, XMLHttpTestTools.JSON_HEADER, JSON.stringify({}));
 

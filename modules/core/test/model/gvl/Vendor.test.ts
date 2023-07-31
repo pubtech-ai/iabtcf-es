@@ -2,7 +2,10 @@ import {expect} from 'chai';
 import {Vendor} from '../../../src/model/gvl/Vendor';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const vendorlistJson = require('@iabtcf/testing/lib/vendorlist/v2.2/vendor-list.json');
+import vendorListJson from '../../../../testing/lib/mjs/vendorlist/v2.2/vendor-list.json';
+import {VersionOrVendorList} from '../../../lib/mjs';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const vendorlistJson = vendorListJson as unknown as VersionOrVendorList;
 
 export function run(): void {
 
@@ -10,6 +13,8 @@ export function run(): void {
 
     it('must contain new fields in GVL 2.2', (): void => {
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       const {vendors, gvlSpecificationVersion} = vendorlistJson;
 
       expect(gvlSpecificationVersion).to.equal(3);
