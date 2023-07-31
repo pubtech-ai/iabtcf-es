@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ROOT=$(git rev-parse --show-toplevel)
-npm_package_version=1.6.5
+npm_package_version=1.6.6
 
 cd $ROOT
 
@@ -20,6 +20,6 @@ done
 sed -i '' 's/\(\@pubtech-ai\/.*\)":.*"[0-9]*\..*"/\1": "'$npm_package_version'"/g' ./modules/**/package.json
 
 # add this to the previous commit
-git add -A && git commit --amend --no-edit
+#git add -A && git commit --amend --no-edit
 
 ./bin/publish-version
