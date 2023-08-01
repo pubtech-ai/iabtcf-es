@@ -170,7 +170,8 @@ export class SemanticPreEncoder {
 
     }
 
-    tcModel = tcModel.clone();
+    // CS: PC_IMPROVEMENT_CONSUME_TC_MODEL [PI-0] revertable
+    // tcModel = tcModel.clone();
     tcModel.consentLanguage = gvl.language.slice(0, 2).toUpperCase();
 
     if (options?.version > 0 && options?.version <= this.processor.length) {

@@ -72,7 +72,8 @@ describe('TCString', (): void => {
     vIds.forEach((vendorId: number): void => {
 
       expect(newModel.vendorsDisclosed.has(vendorId), `newModel.vendorsDisclosed.has(${vendorId})`).to.be.true;
-      expect(tcModel.vendorsDisclosed.has(vendorId), `tcModel.vendorsDisclosed.has(${vendorId})`).to.be.false;
+      // CS: PC_IMPROVEMENT_CONSUME_TC_MODEL [PI-0] revertable
+      // expect(tcModel.vendorsDisclosed.has(vendorId), `tcModel.vendorsDisclosed.has(${vendorId})`).to.be.false;
 
     });
 
