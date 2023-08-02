@@ -138,29 +138,19 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
    */
   public restrictPurposeToLegalBasis(purposeRestriction: PurposeRestriction): void {
 
-    const vendors = this.gvl.vendorIds;
+    const vendors = Array.from(this.gvl.vendorIds);
     const hash: string = purposeRestriction.hash;
-    const lastEntry = (function(): number {
 
-      let value: number;
-      for (value of vendors);
-      return value;
+    if (!this.has(hash)) {
 
-    })();
+      this.map.set(hash, BinarySearchTree.build(vendors)); // use static method `build` to create a `BST` from the ordered array of IDs
+      this.bitLength = 0;
 
-    /**
-     * Create an ordered array of vendor IDs from `1` (the minimum value for Vendor ID) to `lastEntry`
-     */
-    const values = [...Array(lastEntry).keys()].map( (i) => i + 1);
+    }
 
-    for (let i = 1; i <= lastEntry; i++) {
+    const currentMap = this.map.get(hash);
 
-      if (!this.has(hash)) {
-
-        this.map.set(hash, BinarySearchTree.build(values)); // use static method `build` to create a `BST` from the ordered array of IDs
-        this.bitLength = 0;
-
-      }
+    for (const vendorId of vendors) {
 
       /**
        * Previously I had a check here to remove a duplicate value, but because
@@ -168,7 +158,7 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
        * need to add an additional de-duplication here.
        */
 
-      this.map.get(hash).add(i);
+      currentMap.add(vendorId);
 
     }
 
