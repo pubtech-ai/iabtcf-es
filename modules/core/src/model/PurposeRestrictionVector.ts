@@ -134,30 +134,29 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
    * restrictPurposeToLegalBasis - adds all Vendors under a given Purpose Restriction
    *
    * @param {PurposeRestriction} purposeRestriction
+   * @param {number[]|null|undefined} vendorsIds
    * @return {void}
    */
-  public restrictPurposeToLegalBasis(purposeRestriction: PurposeRestriction): void {
+  public restrictPurposeToLegalBasis(purposeRestriction: PurposeRestriction, vendorsIds: number[] = Array.from(this.gvl.vendorIds)): void {
 
-    const vendors = Array.from(this.gvl.vendorIds);
     const hash: string = purposeRestriction.hash;
 
     if (!this.has(hash)) {
 
-      this.map.set(hash, BinarySearchTree.build(vendors)); // use static method `build` to create a `BST` from the ordered array of IDs
+      this.map.set(hash, BinarySearchTree.build(vendorsIds)); // use static method `build` to create a `BST` from the ordered array of IDs
       this.bitLength = 0;
 
     }
 
     const currentMap = this.map.get(hash);
 
-    for (const vendorId of vendors) {
+    for (const vendorId of vendorsIds) {
 
       /**
        * Previously I had a check here to remove a duplicate value, but because
        * we're using a tree the value is guaranteed to be unique so there is no
        * need to add an additional de-duplication here.
        */
-
       currentMap.add(vendorId);
 
     }

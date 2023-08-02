@@ -152,11 +152,14 @@ export class PurposeRestrictionVectorEncoder {
 
           }
 
-          for (let k: number = startOrOnlyVendorId; k <= endVendorId; k++) {
+          const vendorIds = Array.from({length: endVendorId - startOrOnlyVendorId + 1}, (_, index) => startOrOnlyVendorId + index);
 
-            vector.add(k, purposeRestriction);
-
-          }
+          vector.restrictPurposeToLegalBasis(purposeRestriction, vendorIds);
+          // for (let k: number = startOrOnlyVendorId; k <= endVendorId; k++) {
+          //
+          //   vector.add(k, purposeRestriction);
+          //
+          // }
 
         } else {
 
