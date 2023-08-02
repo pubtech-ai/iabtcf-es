@@ -15,6 +15,18 @@ export class PurposeRestrictionVectorEncoder {
     if (!prVector.isEmpty()) {
 
       const gvlVendorIds = Array.from(prVector.gvl.vendorIds);
+
+      const gvlHasVendorBetween = (vendorId: number, nextVendorId: number): boolean => {
+
+        const firstIndex = gvlVendorIds.indexOf(vendorId);
+        const nextIndex = gvlVendorIds.indexOf(nextVendorId);
+
+        const res = nextIndex - firstIndex;
+
+        return res > 1;
+
+      };
+
       // create each restriction group
       prVector.getRestrictions().forEach((purpRestriction: PurposeRestriction): void => {
 
@@ -45,33 +57,10 @@ export class PurposeRestrictionVectorEncoder {
 
           }
 
-          // we know that `len` is greater than zero because we entered the loop
-          // const lastVendorId = vendors[len - 1];
-
-          // const nextGvlVendor = (vendorId: number): number => {
-          //
-          //   while (++vendorId <= lastVendorId && !gvlVendorIds.has(vendorId)) {
-          //   }
-          //
-          //   return vendorId;
-          //
-          // };
-
-          const gvlHasVendorBetween = (vendorId: number, nextVendorId: number): boolean => {
-
-            const firstIndex = gvlVendorIds.indexOf(vendorId);
-            const nextIndex = gvlVendorIds.indexOf(nextVendorId);
-
-            const res = nextIndex - firstIndex;
-
-            return res > 1;
-
-          };
-
           /**
            * either end of the loop or there are GVL vendor IDs before the next one
            */
-          if (i === len - 1 || gvlHasVendorBetween(vendorId, vendors[i + 1])/** vendors[i + 1] > nextGvlVendor(vendorId)*/) {
+          if (i === len - 1 || gvlHasVendorBetween(vendorId, vendors[i + 1])) {
 
             /**
              * it's a range entry if we've got something other than the start
@@ -153,17 +142,11 @@ export class PurposeRestrictionVectorEncoder {
           }
 
           const vendorIds = Array.from({length: endVendorId - startOrOnlyVendorId + 1}, (_, index) => startOrOnlyVendorId + index);
-
           vector.restrictPurposeToLegalBasis(purposeRestriction, vendorIds);
-          // for (let k: number = startOrOnlyVendorId; k <= endVendorId; k++) {
-          //
-          //   vector.add(k, purposeRestriction);
-          //
-          // }
 
         } else {
 
-          vector.add(startOrOnlyVendorId, purposeRestriction);
+          vector.restrictPurposeToLegalBasis(purposeRestriction, [startOrOnlyVendorId]);
 
         }
 
