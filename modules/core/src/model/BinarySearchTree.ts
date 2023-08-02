@@ -27,81 +27,53 @@ export class BinarySearchTree extends Cloneable<BinarySearchTree> {
 
   public add(value: number): void {
 
-    // create new node object
-    const node: TreeNode = {
+    const newNode: TreeNode = {
       value: value,
       left: null,
       right: null,
     };
 
-    let current;
-
-    // first item?
     if (this.isEmpty()) {
 
-      this.root = node;
+      this.root = newNode;
+      return;
 
-    } else {
+    }
 
-      // start at the root
-      current = this.root;
+    let current = this.root;
 
-      // infinite loop, figure out where to put it
-      while (true) {
+    while (current !== null) {
 
-        // if the value is less than current value; go left
-        if (value < current.value) {
+      if (value < current.value) {
 
-          // if it's empty, we can insert
-          if (current.left === null) {
+        if (current.left === null) {
 
-            // insert on the left
-            current.left = node;
-
-            // our work is done here
-            break;
-
-          } else {
-
-            /**
-             * if there's something there already, we'll reset the pointer and
-             * wait for the next loop to do something ie. keep traversing
-             */
-            current = current.left;
-
-          }
-
-        } else if (value > current.value) {
-
-          // if the value is greater than our current value; go right
-          if (current.right === null) {
-
-            // there's nothing to the right, so put it here
-            current.right = node;
-            break;
-
-          } else {
-
-            /**
-             * if there's something there already, we'll reset the pointer and
-             * wait for the next loop to do something ie. keep traversing
-             */
-
-            current = current.right;
-
-          }
+          current.left = newNode;
+          return;
 
         } else {
 
-          /**
-           * If it's neither greater than the right or less than the right then
-           * it is equal to the current nodes value.  In that case we won't do
-           * anything with it because we will only insert unique values.
-           */
-
-          break;
+          current = current.left;
 
         }
+
+      } else if (value > current.value) {
+
+        if (current.right === null) {
+
+          current.right = newNode;
+          return;
+
+        } else {
+
+          current = current.right;
+
+        }
+
+      } else {
+
+        // Value already exists in the tree, do nothing.
+        return;
 
       }
 
