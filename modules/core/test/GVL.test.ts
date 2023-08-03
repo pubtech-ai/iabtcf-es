@@ -440,6 +440,74 @@ describe('GVL', (): void => {
 
   });
 
+  const langToTranslationsDataProvider = {
+    'ar': 'ar',
+    'bg': 'bg',
+    'bs': 'bs',
+    'ca': 'ca',
+    'cs': 'cs',
+    'da': 'da',
+    'de': 'de',
+    'el': 'el',
+    'es': 'es',
+    'et': 'et',
+    'eu': 'eu',
+    'fi': 'fi',
+    'fr': 'fr',
+    'gl': 'gl',
+    'hr': 'hr',
+    'hu': 'hu',
+    'it': 'it',
+    'ja': 'ja',
+    'lt': 'lt',
+    'lv': 'lv',
+    'mt': 'mt',
+    'nl': 'nl',
+    'no': 'no',
+    'pl': 'pl',
+    'pt': 'pt-pt',
+    'pt-pt': 'pt-pt',
+    'pt-br': 'pt-br',
+    'ro': 'ro',
+    'ru': 'ru',
+    'sk': 'sk',
+    'sl': 'sl',
+    'sr': 'sr-latn',
+    'sr-latn': 'sr-latn',
+    'sr-cyrl': 'sr-cyrl',
+    'sv': 'sv',
+    'tr': 'tr',
+    'zh': 'zh',
+  };
+
+  // eslint-disable-next-line guard-for-in
+  for (const providedLang in langToTranslationsDataProvider) {
+
+    it('should replace the language when changeLanguage() is called with most close to valid language for: ' + providedLang, async (): Promise<void> => {
+
+      GVL.baseUrl = 'http://sweetcmp.com';
+
+      const gvl: GVL = new GVL(vendorlistJson);
+      const language = providedLang;
+
+      expect(gvl.language).to.equal(GVL.DEFAULT_LANGUAGE);
+
+      const changePromise = gvl.changeLanguage(language);
+
+      expect(XMLHttpTestTools.requests.length).to.equal(1);
+
+      const req: sinon.SinonFakeXMLHttpRequest = XMLHttpTestTools.requests[0];
+
+      expect(req.url).to.equal(GVL.baseUrl + GVL.languageFilename.replace('[LANG]', `${langToTranslationsDataProvider[providedLang]}`));
+
+      req.respond(200, XMLHttpTestTools.JSON_HEADER, JSON.stringify(translationJson));
+
+      await changePromise;
+
+    });
+
+  }
+
   it('should replace the language when changeLanguage() is called with same language with different variant', () => {
 
     GVL.baseUrl = 'http://sweetcmp.com';
