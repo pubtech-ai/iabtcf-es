@@ -141,6 +141,7 @@ export class PurposeRestrictionVectorEncoder {
 
           }
 
+          // required to preserve the default behavior (includes also vendors ids that doesn't exist)
           const vendorIds = Array.from({length: endVendorId - startOrOnlyVendorId + 1}, (_, index) => startOrOnlyVendorId + index);
           vector.restrictPurposeToLegalBasis(purposeRestriction, vendorIds);
 
