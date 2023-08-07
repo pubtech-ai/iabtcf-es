@@ -1,6 +1,6 @@
 {
   "name": "@pubtech-ai/cmpapi",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Ensures other in-page digital marketing technologies have access to CMP transparency and consent information for the iab. Transparency and Consent Framework (TCF).",
   "author": "Mayank Mishra <mayank@iabtechlab.com>",
   "homepage": "https://iabtcf.com/",
@@ -31,8 +31,8 @@
     "@pubtech-ai/core": ">=1.0.0"
   },
   "devDependencies": {
-    "@pubtech-ai/stub": "1.7.1",
-    "@pubtech-ai/testing": "1.7.1",
+    "@pubtech-ai/stub": "1.7.2",
+    "@pubtech-ai/testing": "1.7.2",
     "@istanbuljs/nyc-config-typescript": "^0.1.3",
     "@types/mocha": "^9.1.0",
     "@types/sinon": "10.0.11",
