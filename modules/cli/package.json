@@ -1,6 +1,6 @@
 {
   "name": "@pubtech-ai/cli",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Decode a iab TCF (Transparency and Consent Framework) TC String via the command line",
   "author": "Mayank Mishra <mayank@iabtechlab.com>",
   "homepage": "https://iabtcf.com/",
@@ -27,7 +27,7 @@
     "lint": "eslint `find src -name '*.ts'`"
   },
   "dependencies": {
-    "@pubtech-ai/core": "2.0.2"
+    "@pubtech-ai/core": "2.1.0"
   },
   "devDependencies": {
     "@types/node": "18.17.4",

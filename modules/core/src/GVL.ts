@@ -402,7 +402,7 @@ export class GVL extends Cloneable<GVL> implements VendorList {
    */
   public getJson(): VendorList {
 
-    return JSON.parse(JSON.stringify({
+    return {
       gvlSpecificationVersion: this.gvlSpecificationVersion,
       vendorListVersion: this.vendorListVersion,
       tcfPolicyVersion: this.tcfPolicyVersion,
@@ -414,7 +414,7 @@ export class GVL extends Cloneable<GVL> implements VendorList {
       stacks: this.stacks,
       dataCategories: this.dataCategories,
       vendors: this.fullVendorList,
-    }));
+    };
 
   }
 
@@ -819,7 +819,7 @@ export class GVL extends Cloneable<GVL> implements VendorList {
    */
   public clone(): GVL {
 
-    const result = new GVL(this.getJson());
+    const result = new GVL(JSON.parse(JSON.stringify(this.getJson())));
 
     /*
      * If the current language of the GVL is not the default language, we set the language of
