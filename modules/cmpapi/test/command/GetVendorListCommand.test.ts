@@ -90,16 +90,6 @@ describe('command->GetVendorListCommand', (): void => {
 
       done();
 
-        done();
-
-      } catch (e) {
-
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        done(e);
-
-      }
-
     }, version);
 
     expect(XMLHttpTestTools.requests.length).to.equal(1);
