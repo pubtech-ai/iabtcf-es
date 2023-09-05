@@ -6,12 +6,9 @@ import {IntMap} from '../src/model/IntMap';
 import {XMLHttpTestTools} from '@pubtech-ai/testing';
 import {Json} from '../src/Json';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import vendorListJson from '../../testing/lib/mjs/vendorlist/v2/vendor-list-v24.json';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import translationJson from '../../testing/lib/mjs/vendorlist/v2/purposes-fr.json';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import vendorListJson22 from '../../testing/lib/mjs/vendorlist/v2.2/vendor-list.json';
+import vendorListJson from '../../testing/lib/mjs/vendorlist/v2/vendor-list-v24.json' assert { type: 'json' };
+import translationJson from '../../testing/lib/mjs/vendorlist/v2/purposes-fr.json' assert { type: 'json' };
+import vendorListJson22 from '../../testing/lib/mjs/vendorlist/v2.2/vendor-list.json' assert { type: 'json' };
 import {VersionOrVendorList} from '../lib/mjs';
 
 const vendorlistJson: any = vendorListJson as unknown as VersionOrVendorList;

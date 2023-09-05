@@ -150,10 +150,10 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
       for (const vendorId of vendorsIds) {
 
         /**
-           * Previously I had a check here to remove a duplicate value, but because
-           * we're using a tree the value is guaranteed to be unique so there is no
-           * need to add an additional de-duplication here.
-           */
+         * Previously I had a check here to remove a duplicate value, but because
+         * we're using a tree the value is guaranteed to be unique so there is no
+         * need to add an additional de-duplication here.
+         */
         currentMap.add(vendorId);
 
       }
