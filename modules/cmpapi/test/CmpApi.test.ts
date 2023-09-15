@@ -12,9 +12,10 @@ import {expect} from 'chai';
 import {makeRandomInt, makeRandomString, TCStringFactory} from '@pubtech-ai/testing';
 
 import * as stub from '@pubtech-ai/stub';
+import * as sinon from 'sinon';
 
 const API_VERSION = 2;
-
+let clock;
 describe('CmpApi', (): void => {
 
   const removeStub = (): void =>{
@@ -53,12 +54,14 @@ describe('CmpApi', (): void => {
 
   beforeEach((): void => {
 
+    clock = sinon.useFakeTimers();
     stub.default();
     CmpApiModel.reset();
 
   });
   afterEach((): void => {
 
+    clock.restore();
     removeStub();
 
   });
@@ -92,6 +95,7 @@ describe('CmpApi', (): void => {
 
     await assertStub();
 
+    clock.tick(15);
     getCmpApi();
 
     expect(window[API_KEY], `window.${API_KEY} after cmpApi created`).to.be.a('function');

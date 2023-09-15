@@ -72,13 +72,17 @@ describe('Reported issues', (): void => {
 
     const callDatFunc = (): void => {
 
-      window[API_KEY](TCFCommand.GET_TC_DATA, 2, (response: Response): void => {
+      setTimeout(() => {
 
-        expect(response instanceof TCData, 'response instanceof TCData').to.be.true;
+        window[API_KEY](TCFCommand.GET_TC_DATA, 2, (response: Response): void => {
 
-        done();
+          expect(response instanceof TCData, 'response instanceof TCData').to.be.true;
 
-      });
+          done();
+
+        });
+
+      }, 0);
 
     };
 
