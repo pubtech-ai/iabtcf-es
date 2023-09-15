@@ -43,7 +43,7 @@ describe('encoder/field->PurposeRestrictionVectorEncoder', (): void => {
      */
     const vendors: number[] = randomize([6, 8, 686]);
     const purposeRestriction: PurposeRestriction =
-      new PurposeRestriction(purposeId, RestrictionType.NOT_ALLOWED);
+        new PurposeRestriction(purposeId, RestrictionType.NOT_ALLOWED);
 
     const prVector: PurposeRestrictionVector = new PurposeRestrictionVector();
 
@@ -56,16 +56,16 @@ describe('encoder/field->PurposeRestrictionVectorEncoder', (): void => {
     }
 
     /**
-       * ORDER:
-       * num pub restrictions
-       * purposeId
-       * restrictionType
-       * numEntries
-       * ----
-       * singleOrRange
-       * startVendorId
-       * endVendorId (may not be there)
-       */
+     * ORDER:
+     * num pub restrictions
+     * purposeId
+     * restrictionType
+     * numEntries
+     * ----
+     * singleOrRange
+     * startVendorId
+     * endVendorId (may not be there)
+     */
     const encoded: string = PurposeRestrictionVectorEncoder.encode(prVector);
     let index = 0;
 
@@ -120,16 +120,16 @@ describe('encoder/field->PurposeRestrictionVectorEncoder', (): void => {
     }
 
     /**
-       * ORDER:
-       * num pub restrictions
-       * purposeId
-       * restrictionType
-       * numEntries
-       * ----
-       * singleOrRange
-       * startVendorId
-       * endVendorId (may not be there)
-       */
+     * ORDER:
+     * num pub restrictions
+     * purposeId
+     * restrictionType
+     * numEntries
+     * ----
+     * singleOrRange
+     * startVendorId
+     * endVendorId (may not be there)
+     */
     const encoded: string = PurposeRestrictionVectorEncoder.encode(prVector);
     let index = 0;
 
@@ -195,22 +195,22 @@ describe('encoder/field->PurposeRestrictionVectorEncoder', (): void => {
     restrictedPurposeIds.forEach((el) => {
 
       prVector.restrictPurposeToLegalBasis(
-        new PurposeRestriction(el, RestrictionType.REQUIRE_CONSENT),
+          new PurposeRestriction(el, RestrictionType.REQUIRE_CONSENT),
       );
 
     });
 
     /**
-   * ORDER:
-   * num pub restrictions
-   * purposeId
-   * restrictionType
-   * numEntries
-   * ----
-   * singleOrRange
-   * startVendorId
-   * endVendorId (may not be there)
-   */
+     * ORDER:
+     * num pub restrictions
+     * purposeId
+     * restrictionType
+     * numEntries
+     * ----
+     * singleOrRange
+     * startVendorId
+     * endVendorId (may not be there)
+     */
     const encoded: string = PurposeRestrictionVectorEncoder.encode(prVector);
     let index = 0;
 
@@ -270,16 +270,16 @@ describe('encoder/field->PurposeRestrictionVectorEncoder', (): void => {
     prVector.restrictPurposeToLegalBasis(purposeRestriction);
 
     /**
-       * ORDER:
-       * num pub restrictions
-       * purposeId
-       * restrictionType
-       * numEntries
-       * ----
-       * singleOrRange
-       * startVendorId
-       * endVendorId (may not be there)
-       */
+     * ORDER:
+     * num pub restrictions
+     * purposeId
+     * restrictionType
+     * numEntries
+     * ----
+     * singleOrRange
+     * startVendorId
+     * endVendorId (may not be there)
+     */
     const encoded: string = PurposeRestrictionVectorEncoder.encode(prVector);
     let index = 0;
 
