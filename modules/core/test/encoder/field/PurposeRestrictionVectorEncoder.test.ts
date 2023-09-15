@@ -195,7 +195,7 @@ describe('encoder/field->PurposeRestrictionVectorEncoder', (): void => {
     restrictedPurposeIds.forEach((el) => {
 
       prVector.restrictPurposeToLegalBasis(
-          new PurposeRestriction(el, RestrictionType.REQUIRE_CONSENT),
+        new PurposeRestriction(el, RestrictionType.REQUIRE_CONSENT),
       );
 
     });
