@@ -1,8 +1,5 @@
 [![InteractiveAdvertisingBureau](https://circleci.com/gh/InteractiveAdvertisingBureau/iabtcf-es.svg?style=shield)](https://circleci.com/gh/InteractiveAdvertisingBureau/iabtcf-es)
 
-## 1.6.5 Stable for TCF v2.2
-## 1.7.0 Little performance Improvement: code [PI-0] revertable
-
 # @iabtcf
 
 Official JavaScript / TypeScript compliant tool suite for implementing the Transparency and Consent Framework (TCF) v2.2.  The essential toolkit for CMPs.
