@@ -32,6 +32,7 @@ export class PurposeRestrictionVectorEncoder {
 
       };
 
+      const cachedResults: Map<Set<number>, { numEntries: number; rangeField: string }> = new Map();
       // create each restriction group
       prVector.getRestrictions().forEach((purpRestriction: PurposeRestriction): void => {
 
@@ -40,53 +41,70 @@ export class PurposeRestrictionVectorEncoder {
         bitString += IntEncoder.encode(purpRestriction.restrictionType, BitLength.restrictionType);
 
         // now get all the vendors under that restriction
-        const vendors: number[] = prVector.getVendors(purpRestriction);
-        const len: number = vendors.length;
+        const vendorsReference = prVector.getVendorsSet(purpRestriction);
 
         /**
          * numEntries comes first so we will have to keep a counter and the do
          * the encoding at the end
          */
         let numEntries = 0;
-        let startId = 0;
         let rangeField = '';
 
-        for (let i = 0; i < len; i ++) {
+        if (cachedResults.has(vendorsReference)) {
 
-          const vendorId: number = vendors[i];
+          const cachedResult = cachedResults.get(vendorsReference);
+          numEntries = cachedResult.numEntries;
+          rangeField = cachedResult.rangeField;
 
-          if (startId === 0) {
+        } else {
 
-            numEntries++;
-            startId = vendorId;
+          const vendors = Array.from(vendorsReference).sort((a, b) => a - b);
+          const len: number = vendors.length;
+          let startId = 0;
 
-          }
+          for (let i = 0; i < len; i ++) {
 
-          /**
-           * either end of the loop or there are GVL vendor IDs before the next one
-           */
-          if (i === len - 1 || vendors[i + 1] > nextGvlVendor(vendorId, vendors[len - 1])) {
+            const vendorId: number = vendors[i];
 
-            /**
-             * it's a range entry if we've got something other than the start
-             * ID
-             */
-            const isRange = !(vendorId === startId);
+            if (startId === 0) {
 
-            // 0 means single 1 means range
-            rangeField += BooleanEncoder.encode(isRange);
-            rangeField += IntEncoder.encode(startId, BitLength.vendorId);
-
-            if (isRange) {
-
-              rangeField += IntEncoder.encode(vendorId, BitLength.vendorId);
+              numEntries++;
+              startId = vendorId;
 
             }
 
-            // reset the startId so we grab the next id in the list
-            startId = 0;
+            /**
+             * either end of the loop or there are GVL vendor IDs before the next one
+             */
+            if (i === len - 1 || vendors[i + 1] > nextGvlVendor(vendorId, vendors[len - 1])) {
+
+              /**
+               * it's a range entry if we've got something other than the start
+               * ID
+               */
+              const isRange = !(vendorId === startId);
+
+              // 0 means single 1 means range
+              rangeField += BooleanEncoder.encode(isRange);
+              rangeField += IntEncoder.encode(startId, BitLength.vendorId);
+
+              if (isRange) {
+
+                rangeField += IntEncoder.encode(vendorId, BitLength.vendorId);
+
+              }
+
+              // reset the startId so we grab the next id in the list
+              startId = 0;
+
+            }
 
           }
+
+          cachedResults.set(vendorsReference, {
+            numEntries,
+            rangeField,
+          });
 
         }
 
