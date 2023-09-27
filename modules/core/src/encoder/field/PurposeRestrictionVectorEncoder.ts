@@ -164,6 +164,7 @@ export class PurposeRestrictionVectorEncoder {
 
           }
 
+          // Can be optimized if required
           for ( let k: number = startOrOnlyVendorId; k <= endVendorId; k++) {
 
             vector.add(k, purposeRestriction);
