@@ -18,6 +18,7 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
    */
   private map: Map<string, Set<number>> = new Map<string, Set<number>>();
   private gvl_: GVL;
+  private cachedVendorMap: Map<number, Set<number>>;
 
   private has(hash: string): boolean {
 
@@ -127,6 +128,28 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
 
   }
 
+  private createOrderedSetOfVendorIdsFromOne(lastEntry): Set<number> {
+
+    if (!this.cachedVendorMap) {
+
+      this.cachedVendorMap = new Map<number, Set<number>>();
+
+    }
+
+    if (!this.cachedVendorMap.has(lastEntry)) {
+
+      /**
+       * Create an ordered array of vendor IDs from `1` (the minimum value for Vendor ID) to `lastEntry`
+       */
+      const orderedSet = new Set([...Array(lastEntry).keys()].map((i) => i + 1));
+      this.cachedVendorMap.set(lastEntry, orderedSet);
+
+    }
+
+    return this.cachedVendorMap.get(lastEntry);
+
+  }
+
   /**
    * restrictPurposeToLegalBasis - adds all Vendors under a given Purpose Restriction
    *
@@ -139,14 +162,9 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
     const hash: string = purposeRestriction.hash;
     const lastEntry = vendors[vendors.length - 1];
 
-    /**
-     * Create an ordered array of vendor IDs from `1` (the minimum value for Vendor ID) to `lastEntry`
-     */
-    const values = [...Array(lastEntry).keys()].map( (i) => i + 1);
-
     if (!this.has(hash)) {
 
-      this.map.set(hash, new Set(values)); // use static method `build` to create a `BST` from the ordered array of IDs
+      this.map.set(hash, this.createOrderedSetOfVendorIdsFromOne(lastEntry));
       this.bitLength = 0;
 >>>>>>> 7b2abcb (Improve purpose restriction perf (#12))
 
@@ -180,7 +198,15 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
    */
   public getVendors(purposeRestriction?: PurposeRestriction): number[] {
 
-    let vendorIds: number[] = [];
+    const vendorIds: number[] = Array.from(this.getVendorsSet(purposeRestriction));
+
+    return vendorIds.sort((a, b) => a - b);
+
+  }
+
+  public getVendorsSet(purposeRestriction?: PurposeRestriction): Set<number> {
+
+    let vendorIds: Set<number> = new Set<number>();
 
     if (purposeRestriction) {
 
@@ -188,29 +214,25 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
 
       if (this.has(hash)) {
 
-        vendorIds = Array.from(this.map.get(hash) as Set<number>);
+        vendorIds = this.map.get(hash);
 
       }
 
     } else {
 
-      const vendorSet = new Set<number>();
-
       this.map.forEach((set: Set<number>): void => {
 
         set.forEach((vendorId: number): void => {
 
-          vendorSet.add(vendorId);
+          vendorIds.add(vendorId);
 
         });
 
       });
 
-      vendorIds = Array.from(vendorSet);
-
     }
 
-    return vendorIds.sort((a, b) => a - b);
+    return vendorIds;
 
   }
 
