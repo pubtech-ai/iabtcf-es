@@ -11,6 +11,7 @@ import {Segment, SegmentIDs} from './model/index.js';
 import {IntEncoder} from './encoder/field/IntEncoder.js';
 import {TCModel} from './TCModel.js';
 
+let decodeCachedResults = {};
 /**
  * Main class for encoding and decoding a
  * TCF Transparency and Consent String
@@ -74,6 +75,14 @@ export class TCString {
    */
   public static decode(encodedTCString: string, tcModel?: TCModel): TCModel {
 
+    if (decodeCachedResults[encodedTCString]) {
+
+      return decodeCachedResults[encodedTCString].clone();
+
+    }
+
+    decodeCachedResults = {};
+
     const segments: string[] = encodedTCString.split('.');
     const len: number = segments.length;
 
@@ -101,6 +110,8 @@ export class TCString {
       SegmentEncoder.decode(segString, tcModel, segment);
 
     }
+
+    decodeCachedResults[encodedTCString] = tcModel;
 
     return tcModel;
 
