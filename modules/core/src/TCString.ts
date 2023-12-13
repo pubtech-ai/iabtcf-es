@@ -77,7 +77,7 @@ export class TCString {
 
     if (decodeCachedResults[encodedTCString]) {
 
-      return decodeCachedResults[encodedTCString].clone();
+      return decodeCachedResults[encodedTCString];
 
     }
 
