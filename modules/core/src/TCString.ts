@@ -69,13 +69,14 @@ export class TCString {
    * @param {string} encodedTCString - base64url encoded Transparency and
    * Consent String to decode - can also be a single or group of segments of
    * the string
-   * @param {string} [tcModel] - model to enhance with the information.  If
+   * @param {TCModel} tcModel - model to enhance with the information.  If
    * none is passed a new instance of TCModel will be created.
+   * @param {boolean} useCached - if true it will return a reference to the same TCModel already created previously.
    * @return {TCModel} - Returns populated TCModel
    */
-  public static decode(encodedTCString: string, tcModel?: TCModel): TCModel {
+  public static decode(encodedTCString: string, tcModel?: TCModel, useCached = false): TCModel {
 
-    if (decodeCachedResults[encodedTCString]) {
+    if (useCached && decodeCachedResults[encodedTCString]) {
 
       return decodeCachedResults[encodedTCString];
 
