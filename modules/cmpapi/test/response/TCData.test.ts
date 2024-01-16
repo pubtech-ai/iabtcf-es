@@ -54,7 +54,7 @@ describe('response->TCData', (): void => {
     const tcModel = TCModelFactory.withGVL();
     const vendorLength = tcModel.vendorConsents.size;
 
-    for (let i =1; i <= vendorLength; i++) {
+    for (let i = 1; i <= vendorLength; i++) {
 
       tcModel.publisherRestrictions.add(i, new PurposeRestriction(makeRandomInt(1, 12), makeRandomInt(0, 2)));
 
@@ -62,6 +62,20 @@ describe('response->TCData', (): void => {
 
     CmpApiModel.gdprApplies = true;
     CmpApiModel.tcModel = tcModel;
+    CmpApiModel.tcString = TCString.encode(CmpApiModel.tcModel);
+
+    TestUtils.tcModelToTCData();
+
+    for (let i = 1; i <= Math.round(vendorLength/2); i++) {
+
+      tcModel.publisherRestrictions.getRestrictions(i).forEach((restriction) => {
+
+        tcModel.publisherRestrictions.remove(i, restriction);
+
+      });
+
+    }
+
     CmpApiModel.tcString = TCString.encode(CmpApiModel.tcModel);
 
     TestUtils.tcModelToTCData();
