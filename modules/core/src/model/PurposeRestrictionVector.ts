@@ -166,7 +166,6 @@ export class PurposeRestrictionVector extends Cloneable<PurposeRestrictionVector
 
       this.map.set(hash, this.createOrderedSetOfVendorIdsFromOne(lastEntry));
       this.bitLength = 0;
->>>>>>> 7b2abcb (Improve purpose restriction perf (#12))
 
     } else {
 
