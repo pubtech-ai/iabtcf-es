@@ -426,13 +426,13 @@ export class GVL extends Cloneable<GVL> implements VendorList {
       vendorListVersion: this.vendorListVersion,
       tcfPolicyVersion: this.tcfPolicyVersion,
       lastUpdated: this.lastUpdated,
-      purposes: this.clonePurposes(),
-      specialPurposes: this.cloneSpecialPurposes(),
-      features: this.cloneFeatures(),
-      specialFeatures: this.cloneSpecialFeatures(),
-      stacks: this.cloneStacks(),
-      ...(this.dataCategories ? {dataCategories: this.cloneDataCategories()} : {}),
-      vendors: this.cloneVendors(),
+      purposes: this.purposes,
+      specialPurposes: this.specialPurposes,
+      features: this.features,
+      specialFeatures: this.specialFeatures,
+      stacks: this.stacks,
+      dataCategories: this.dataCategories,
+      vendors: this.fullVendorList,
     };
 
   }
