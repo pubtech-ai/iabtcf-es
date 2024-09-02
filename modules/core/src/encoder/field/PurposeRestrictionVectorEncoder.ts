@@ -99,6 +99,15 @@ export class PurposeRestrictionVectorEncoder {
             }
 
             /**
+             * @todo require to write a test to cover this part.
+             */
+            if (vendorId == i - 1 && len == i + 1) {
+
+              isRangeEncodeRequired = true;
+
+            }
+
+            /**
              * either end of the loop or there are GVL vendor IDs before the next one
              */
             if (isRangeEncodeRequired) {
