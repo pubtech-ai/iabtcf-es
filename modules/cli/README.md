@@ -1,8 +1,8 @@
-[![NPM version](https://img.shields.io/npm/v/@iabtechlabtcf/cli.svg?style=flat-square)](https://www.npmjs.com/package/@iabtechlabtcf/cli)
-[![npm module downloads per month](http://img.shields.io/npm/dm/@iabtechlabtcf/cli.svg?style=flat)](https://www.npmjs.org/package/@iabtechlabtcf/cli)
-[![InteractiveAdvertisingBureau](https://circleci.com/gh/InteractiveAdvertisingBureau/iabtcf-es.svg?style=shield)](https://circleci.com/gh/InteractiveAdvertisingBureau/iabtcf-es)
+[![NPM version](https://img.shields.io/npm/v/@pubtech-ai/cli.svg?style=flat-square)](https://www.npmjs.com/package/@pubtech-ai/cli)
+[![npm module downloads per month](http://img.shields.io/npm/dm/@pubtech-ai/cli.svg?style=flat)](https://www.npmjs.org/package/@pubtech-ai/cli)
+[![InteractiveAdvertisingBureau](https://circleci.com/gh/InteractiveAdvertisingBureau/pubtech-ai-es.svg?style=shield)](https://circleci.com/gh/InteractiveAdvertisingBureau/pubtech-ai-es)
 
-# @iabtechlabtcf/cli
+# @pubtech-ai/cli
 
 command line decoding of iab TC String
 
@@ -10,12 +10,12 @@ command line decoding of iab TC String
 
 npm
 ```
-npm install -g @iabtechlabtcf/cli
+npm install -g @pubtech-ai/cli
 ```
 
 yarn
 ```
-yarn add -g @iabtechlabtcf/cli
+yarn add -g @pubtech-ai/cli
 ```
 
 #### Using

@@ -1,8 +1,8 @@
 import {Cloneable} from './Cloneable.js';
 import {GVLError} from './errors/index.js';
 import {Json} from './Json.js';
-import {ConsentLanguages, IntMap} from './model/index.js';
-import {ByPurposeVendorMap, Declarations, Feature, IDSetMap, Purpose, Stack, Vendor, VendorList, DataCategory, GvlCreationOptions} from './model/gvl/index.js';
+import {ConsentLanguages, GvlCreationOptions, IntMap} from './model/index.js';
+import {ByPurposeVendorMap, Declarations, Feature, IDSetMap, Purpose, Stack, Vendor, VendorList, DataCategory} from './model/gvl/index.js';
 import {DataRetention} from './model/gvl/DataRetention';
 import {VendorUrl} from './model/gvl/VendorUrl';
 
@@ -426,13 +426,13 @@ export class GVL extends Cloneable<GVL> implements VendorList {
       vendorListVersion: this.vendorListVersion,
       tcfPolicyVersion: this.tcfPolicyVersion,
       lastUpdated: this.lastUpdated,
-      purposes: this.clonePurposes(),
-      specialPurposes: this.cloneSpecialPurposes(),
-      features: this.cloneFeatures(),
-      specialFeatures: this.cloneSpecialFeatures(),
-      stacks: this.cloneStacks(),
-      ...(this.dataCategories ? {dataCategories: this.cloneDataCategories()} : {}),
-      vendors: this.cloneVendors(),
+      purposes: this.purposes,
+      specialPurposes: this.specialPurposes,
+      features: this.features,
+      specialFeatures: this.specialFeatures,
+      stacks: this.stacks,
+      dataCategories: this.dataCategories,
+      vendors: this.fullVendorList,
     };
 
   }
@@ -1029,7 +1029,7 @@ export class GVL extends Cloneable<GVL> implements VendorList {
    */
   public clone(): GVL {
 
-    const result = new GVL(this.getJson());
+    const result = new GVL(JSON.parse(JSON.stringify(this.getJson())));
 
     /*
      * If the current language of the GVL is not the default language, we set the language of

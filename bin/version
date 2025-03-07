@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ROOT=$(git rev-parse --show-toplevel)
+npm_package_version=3.0.0
 
 cd $ROOT
 
@@ -16,9 +17,9 @@ for pkg in ./modules/*; do
 done
 
 # Updated references to other iab libs but only hard versions
-sed -i '' 's/\(\@iabtechlabtcf\/.*\)":.*"[0-9]*\..*"/\1": "'$npm_package_version'"/g' ./modules/**/package.json
+sed -i '' 's/\(\@pubtech-ai\/.*\)":.*"[0-9]*\..*"/\1": "'$npm_package_version'"/g' ./modules/**/package.json
 
 # add this to the previous commit
-git add -A && git commit --amend --no-edit
+#git add -A && git commit --amend --no-edit
 
 ./bin/publish-version
