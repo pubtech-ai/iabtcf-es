@@ -1,7 +1,7 @@
 import {CmpApiModel} from '../../src/CmpApiModel';
 import {Response} from '../../src/response/Response';
 import {expect} from 'chai';
-import {makeRandomInt} from '@iabtechlabtcf/testing';
+import {makeRandomInt} from '@pubtech-ai/testing';
 
 describe('response->Response', (): void => {
 

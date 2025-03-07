@@ -1,4 +1,4 @@
-import {GVL} from '@iabtechlabtcf/core';
+import {GVL} from '@pubtech-ai/core';
 
 export class GVLFactory {
 

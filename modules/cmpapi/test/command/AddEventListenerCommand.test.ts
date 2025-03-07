@@ -1,6 +1,6 @@
 import {AddEventListenerCommand} from '../../src/command/AddEventListenerCommand';
 import {CmpApiModel} from '../../src/CmpApiModel';
-import {TCModelFactory} from '@iabtechlabtcf/testing';
+import {TCModelFactory} from '@pubtech-ai/testing';
 import {TCData} from '../../src/response/TCData';
 import {expect} from 'chai';
 

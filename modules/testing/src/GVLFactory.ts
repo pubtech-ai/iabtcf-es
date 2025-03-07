@@ -1,4 +1,4 @@
-import {GVL} from '@iabtechlabtcf/core';
+import {GVL} from '@pubtech-ai/core';
 import * as fs from 'fs';
 import * as path from 'path';
 import {fileURLToPath} from 'url';

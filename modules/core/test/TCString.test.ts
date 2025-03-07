@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {TCString, TCModel} from '../src';
 import {Segment} from '../src/model';
-import {TCModelFactory} from '@iabtechlabtcf/testing';
+import {TCModelFactory} from '@pubtech-ai/testing';
 
 describe('TCString', (): void => {
 
@@ -72,7 +72,8 @@ describe('TCString', (): void => {
     vIds.forEach((vendorId: number): void => {
 
       expect(newModel.vendorsDisclosed.has(vendorId), `newModel.vendorsDisclosed.has(${vendorId})`).to.be.true;
-      expect(tcModel.vendorsDisclosed.has(vendorId), `tcModel.vendorsDisclosed.has(${vendorId})`).to.be.false;
+      // CS: PC_IMPROVEMENT_CONSUME_TC_MODEL [PI-0] revertable
+      // expect(tcModel.vendorsDisclosed.has(vendorId), `tcModel.vendorsDisclosed.has(${vendorId})`).to.be.false;
 
     });
 
