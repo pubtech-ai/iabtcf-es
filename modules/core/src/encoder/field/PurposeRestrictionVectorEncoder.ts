@@ -92,7 +92,7 @@ export class PurposeRestrictionVectorEncoder {
 
               } else if (index > i && index < len) {
 
-                i = index;
+                i = i + 1;
 
               }
 
