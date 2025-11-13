@@ -91,6 +91,10 @@ export class TCData extends Response {
 
         };
 
+      } else {
+
+        delete this.outOfBand;
+
       }
 
       this.purpose = {
