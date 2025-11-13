@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ROOT=$(git rev-parse --show-toplevel)
-npm_package_version=3.1.0
-
+npm_package_version=3.1.2
+1
 cd $ROOT
 
 for pkg in ./modules/*; do
