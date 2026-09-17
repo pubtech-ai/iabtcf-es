@@ -1,4 +1,4 @@
-import {TCModel, PurposeRestriction, RestrictionType, GVL} from '@iabtechlabtcf/core';
+import {TCModel, PurposeRestriction, RestrictionType, GVL} from '@pubtech-ai/core';
 import {makeRandomInt} from './makeRandomInt.js';
 import {GVLFactory} from './GVLFactory.js';
 

@@ -7,6 +7,7 @@
     let cmpFrame;
     let gdprApplies;
 
+    let skipTimeout = false;
     function addFrame() {
       const doc = currentWindow.document;
       const otherCMP = !!(currentWindow.frames[TCF_LOCATOR_NAME]);
@@ -16,9 +17,16 @@
           const iframe = doc.createElement('iframe');
 
           iframe.style.cssText = 'display:none';
-          iframe.name = TCF_LOCATOR_NAME;
-          doc.body.appendChild(iframe);
+          iframe.name = TCF_LOCATOR_NAME
+          if (skipTimeout) {
+            doc.body.appendChild(iframe);
+          } else {
+            setTimeout(() => {
+              doc.body.appendChild(iframe);
+            }, 0);
+          }
         } else {
+          skipTimeout = true;
           setTimeout(addFrame, 5);
         }
       }

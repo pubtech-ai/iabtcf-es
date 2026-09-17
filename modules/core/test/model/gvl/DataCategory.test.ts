@@ -9,6 +9,8 @@ export function run(): void {
 
     it('must be present in GVL 2.2', (): void => {
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       const {dataCategories, gvlSpecificationVersion} = vendorlistJson;
 
       expect(gvlSpecificationVersion).to.equal(3);

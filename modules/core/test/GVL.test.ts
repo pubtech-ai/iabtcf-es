@@ -3,7 +3,7 @@ import * as sinon from 'sinon';
 import {GVL} from '../src/GVL';
 import {Vendor} from '../src/model/gvl';
 import {IntMap} from '../src/model/IntMap';
-import {XMLHttpTestTools} from '@iabtechlabtcf/testing';
+import {XMLHttpTestTools} from '@pubtech-ai/testing';
 import {Json} from '../src/Json';
 import {DataCategory} from '../src/model/gvl/DataCategory';
 

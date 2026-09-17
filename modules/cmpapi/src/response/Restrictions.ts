@@ -1,4 +1,4 @@
-import {RestrictionType} from '@iabtechlabtcf/core';
+import {RestrictionType} from '@pubtech-ai/core';
 
 export interface Restrictions {
 

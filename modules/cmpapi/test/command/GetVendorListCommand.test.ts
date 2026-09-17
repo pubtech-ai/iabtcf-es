@@ -1,8 +1,8 @@
 import * as sinon from 'sinon';
 import {CmpApiModel} from '../../src/CmpApiModel';
 import {GetVendorListCommand} from '../../src/command/GetVendorListCommand';
-import {TCModelFactory, XMLHttpTestTools, GVLFactory, makeRandomInt} from '@iabtechlabtcf/testing';
-import {VendorList, TCModel} from '@iabtechlabtcf/core';
+import {TCModelFactory, XMLHttpTestTools, GVLFactory, makeRandomInt} from '@pubtech-ai/testing';
+import {VendorList, TCModel} from '@pubtech-ai/core';
 import {expect} from 'chai';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -66,17 +66,27 @@ describe('command->GetVendorListCommand', (): void => {
     const version = makeRandomInt(1, 22);
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const json = JSON.parse(fs.readFileSync(__dirname + `/../../../testing/lib/mjs/vendorlist/v2/vendor-list-v${version}.json`).toString());
+    const json = JSON.parse(fs.readFileSync(__dirname + `/../../../testing/lib/mjs/vendorlist/v2.2/vendor-list.json`).toString());
     const stringified = JSON.stringify(json);
 
     new GetVendorListCommand((gvl: VendorList, success: boolean): void => {
 
-      expect(success, 'success').to.be.true;
+      try {
 
-      // the lastUpdated date gets wonky because of the require
-      delete json.lastUpdated;
-      delete gvl.lastUpdated;
-      expect(gvl, 'gvl').to.deep.equal(json);
+        expect(success, 'success').to.be.true;
+
+        // the lastUpdated date gets wonky because of the require
+        delete json.lastUpdated;
+        delete gvl.lastUpdated;
+        expect(gvl, 'gvl').to.deep.equal(json);
+
+      } catch (e) {
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        done(e);
+
+      }
 
       done();
 

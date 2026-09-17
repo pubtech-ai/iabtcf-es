@@ -1,4 +1,4 @@
-import * as stub from '@iabtechlabtcf/stub';
+import * as stub from '@pubtech-ai/stub';
 import * as sinon from 'sinon';
 import {API_KEY, CmpApi} from '../src/';
 import {CmpApiModel} from '../src/CmpApiModel';
@@ -7,7 +7,7 @@ import {EventStatus} from '../src/status/EventStatus';
 import {TCFCommand} from '../src/command/TCFCommand';
 import {TestUtils} from './TestUtils';
 import {expect} from 'chai';
-import {makeRandomInt, TCStringFactory} from '@iabtechlabtcf/testing';
+import {makeRandomInt, TCStringFactory} from '@pubtech-ai/testing';
 
 describe('Reported issues', (): void => {
 
@@ -72,13 +72,17 @@ describe('Reported issues', (): void => {
 
     const callDatFunc = (): void => {
 
-      window[API_KEY](TCFCommand.GET_TC_DATA, 2, (response: Response): void => {
+      setTimeout(() => {
 
-        expect(response instanceof TCData, 'response instanceof TCData').to.be.true;
+        window[API_KEY](TCFCommand.GET_TC_DATA, 2, (response: Response): void => {
 
-        done();
+          expect(response instanceof TCData, 'response instanceof TCData').to.be.true;
 
-      });
+          done();
+
+        });
+
+      }, 0);
 
     };
 
